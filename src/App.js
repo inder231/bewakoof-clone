@@ -1,10 +1,10 @@
 import { Box } from "@chakra-ui/react";
-import Home from "./components/pages/Home";
+import Allroutes from "./components/routes/Allroutes";
 
 function App() {
   return (
     <Box>
-      <Home/>
+      <Allroutes/>
     </Box>
   );
 }
