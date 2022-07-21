@@ -6,4 +6,6 @@ const MobileCovers = () => {
   )
 }
 
-export default MobileCovers
+
+export default MobileCovers 
+
