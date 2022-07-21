@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -23,6 +24,7 @@ import Navbar from "../component/Navbar";
 import { setProducts } from "../redux/actions/action";
 import ProductCard from "../component/ProductCard";
 import Footer from "../component/Footer";
+
 const category = [
   "T-Shirt",
   "Boxer",
@@ -97,6 +99,7 @@ const MensPage = () => {
                       <Button color="black" variant="ghost" onClick={()=>setSortOrder("DESC")} >Price: High to Low</Button>
                     </AccordionPanel>
                   </AccordionItem>
+
 
                   <AccordionItem>
                     <AccordionButton>
