@@ -6,6 +6,7 @@ function App() {
     <Box>
       <Allroutes/>
     </Box>
+
   );
 }
 

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -24,7 +23,6 @@ import Navbar from "../component/Navbar";
 import { setProducts } from "../redux/actions/action";
 import ProductCard from "../component/ProductCard";
 import Footer from "../component/Footer";
-
 const category = [
   "T-Shirt",
   "Boxer",
@@ -81,9 +79,10 @@ const MensPage = () => {
           </BreadcrumbItem>
         </Breadcrumb>
       </Show>
-      <Grid templateColumns="repeat(6,1fr)" gap={2}>
+      <Grid templateColumns="repeat(6,1fr)" gap={2} h="100%" bg="white">
         <Show above="md">
           <GridItem colSpan={1} bg="white" color="black">
+
             <Box>
               <Text textStyle="h4" pl="4">
                 FILTERS
