@@ -23,6 +23,8 @@ import Header from "../component/Header";
 import Navbar from "../component/Navbar";
 import { setProducts } from "../redux/actions/action";
 import ProductCard from "../component/ProductCard";
+import Footer from "../component/Footer";
+
 const category = [
   "T-Shirt",
   "Boxer",
@@ -81,7 +83,7 @@ const MensPage = () => {
       </Show>
       <Grid templateColumns="repeat(6,1fr)" gap={2}>
         <Show above="md">
-          <GridItem colSpan={1} h="100vh" bg="white" color="black">
+          <GridItem colSpan={1} bg="white" color="black">
             <Box>
               <Text textStyle="h4" pl="4">
                 FILTERS
@@ -97,6 +99,7 @@ const MensPage = () => {
                       <Button color="black" variant="ghost" onClick={()=>setSortOrder("DESC")} >Price: High to Low</Button>
                     </AccordionPanel>
                   </AccordionItem>
+
 
                   <AccordionItem>
                     <AccordionButton>
@@ -137,7 +140,7 @@ const MensPage = () => {
             </Box>
           </GridItem>
         </Show>
-        <GridItem bg="white" colSpan={{ sm: 6, md: 5, lg: 5 }} h="100vh">
+        <GridItem bg="white" colSpan={{ sm: 6, md: 5, lg: 5 }} >
           <SimpleGrid columns={[2, 2, 3, 4]} p="1rem" spacing="1rem">
             {productsList?.map((data, i) => (
               <Box key={i}>
@@ -149,6 +152,7 @@ const MensPage = () => {
           </SimpleGrid>
         </GridItem>
       </Grid>
+      <Footer/>
     </Box>
   );
 };
