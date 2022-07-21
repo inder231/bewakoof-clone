@@ -19,7 +19,7 @@ import {
 import { BsInstagram, BsPinterest, BsSnapchat } from "react-icons/bs";
 const Footer = () => {
   return (
-    <Box padding="1rem">
+    <Box padding="1rem" bg="black" color="white" >
       <Show above="md">
         <Heading color="brand.100" ml="1rem">
           Bewakoof

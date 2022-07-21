@@ -1,27 +1,5 @@
 import { Box, AspectRatio, Image, Flex, Text } from "@chakra-ui/react";
 import React from "react";
-const data = [
-  {
-    image:
-      "https://images.bewakoof.com/t640/voyage-oversized-fit-t-shirt-520745-1658295402-1.jpg",
-    name: "Men's Blue Voyage Grpahic Printed Oversized T-shirt",
-    name_url: "https://www.bewakoof.com/p/voyage-oversized-fit-t-shirt-men",
-    company: "Bewakoof",
-    company_url: "https://www.bewakoof.com/p/voyage-oversized-fit-t-shirt-men",
-    priceNew: "₹499",
-    priceNew_url: "https://www.bewakoof.com/p/voyage-oversized-fit-t-shirt-men",
-    pricePrev: "₹1299",
-    pricePrev_url:
-      "https://www.bewakoof.com/p/voyage-oversized-fit-t-shirt-men",
-    tribePrice: "₹459For TriBe Members",
-    tribePrice_url:
-      "https://www.bewakoof.com/p/voyage-oversized-fit-t-shirt-men",
-    liked: "https://images.bewakoof.com/web/Wishlist.svg",
-    liked_url: "https://www.bewakoof.com/p/voyage-oversized-fit-t-shirt-men",
-    fit: "OVERSIZED FIT",
-    fit_url: "https://www.bewakoof.com/p/voyage-oversized-fit-t-shirt-men",
-  },
-];
 const ProductCard = ({ data }) => {
   const { image, name, company, priceNew, pricePrev, tribePrice, liked, fit } =
     data;
