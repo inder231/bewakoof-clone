@@ -26,7 +26,7 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   return (
-    <Box bg="white" color="black" position="sticky" top="0" w="100%">
+    <Box bg="white" color="black" position="sticky" top="0" w="100%" zIndex="10" >
       <Flex w="90%" m="auto" align="center" p="10px 0px">
         <Flex width="500px" align="center" justifyContent="space-between">
           <Show below="md">
