@@ -15,6 +15,8 @@ import {
   AccordionPanel,
   AccordionIcon,
   Button,
+  Spinner,
+  Flex,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import axios from "axios";
@@ -52,14 +54,23 @@ const category = [
 //   "SortBY",
 // ];
 const MensPage = () => {
-  const [sortOrder,setSortOrder]   = useState('ASC');
+  const [sortOrder, setSortOrder] = useState("ASC");
+  const [loading, setIsloading] = useState(false);
+  const [error, setIsError] = useState(false);
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const dispatch = useDispatch();
   const getMensProducts = async () => {
-    let mensProducts = await axios
+    setIsloading(true);
+    await axios
       .get(`${baseUrl}/?_sort=priceNew&_order=${sortOrder}`)
-      .catch((err) => console.log(err));
-    dispatch(setProducts(mensProducts.data));
+      .then((res) => {
+        setIsloading(false);
+        dispatch(setProducts(res.data));
+      })
+      .catch((err) => {
+        setIsloading(false);
+        setIsError(true);
+      });
   };
   useEffect(() => {
     getMensProducts();
@@ -82,7 +93,6 @@ const MensPage = () => {
       <Grid templateColumns="repeat(6,1fr)" gap={2} h="100%" bg="white">
         <Show above="md">
           <GridItem colSpan={1} bg="white" color="black">
-
             <Box>
               <Text textStyle="h4" pl="4">
                 FILTERS
@@ -94,11 +104,22 @@ const MensPage = () => {
                       Sort By <AccordionIcon />
                     </AccordionButton>
                     <AccordionPanel>
-                      <Button color="black" variant="ghost" onClick={()=>setSortOrder("ASC")} >Price: Low to High</Button>
-                      <Button color="black" variant="ghost" onClick={()=>setSortOrder("DESC")} >Price: High to Low</Button>
+                      <Button
+                        color="black"
+                        variant="ghost"
+                        onClick={() => setSortOrder("ASC")}
+                      >
+                        Price: Low to High
+                      </Button>
+                      <Button
+                        color="black"
+                        variant="ghost"
+                        onClick={() => setSortOrder("DESC")}
+                      >
+                        Price: High to Low
+                      </Button>
                     </AccordionPanel>
                   </AccordionItem>
-
 
                   <AccordionItem>
                     <AccordionButton>
@@ -139,19 +160,31 @@ const MensPage = () => {
             </Box>
           </GridItem>
         </Show>
-        <GridItem bg="white" colSpan={{ sm: 6, md: 5, lg: 5 }} >
-          <SimpleGrid columns={[2, 2, 3, 4]} p="1rem" spacing="1rem">
-            {productsList?.map((data, i) => (
-              <Box key={i}>
-                <Link to="/">
-                  <ProductCard data={data} />
-                </Link>
-              </Box>
-            ))}
-          </SimpleGrid>
+        <GridItem bg="white" colSpan={{ sm: 6, md: 5, lg: 5 }}>
+          {!loading ? (
+            <SimpleGrid columns={[2, 2, 3, 4]} p="1rem" spacing="1rem">
+              {productsList?.map((data, i) => (
+                <Box key={i}>
+                  <Link to="/">
+                    <ProductCard data={data} />
+                  </Link>
+                </Box>
+              ))}
+            </SimpleGrid>
+          ) : (
+            <Flex justify="center" >
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            </Flex>
+          )}
         </GridItem>
       </Grid>
-      <Footer/>
+      <Footer />
     </Box>
   );
 };
