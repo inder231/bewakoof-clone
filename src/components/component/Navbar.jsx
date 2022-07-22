@@ -21,12 +21,37 @@ import { AiOutlineUser } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsBag, BsSearch } from "react-icons/bs";
 import { GoThreeBars } from "react-icons/go";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { setProducts } from "../redux/actions/action";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+  const [search, setSearch] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const getSearchedData = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_BASE_URL}/?q=${search}`)
+      .then((res) => dispatch(setProducts(res.data)))
+      .catch((err) => console.log(err));
+  };
+  const onPressEnter = (e) => {
+    if (e.key !== "Enter") return;
+    getSearchedData();
+    navigate("/mens");
+  };
   return (
-    <Box bg="white" color="black" position="sticky" top="0" w="100%" zIndex="10" >
+    <Box
+      bg="white"
+      color="black"
+      position="sticky"
+      top="0"
+      w="100%"
+      zIndex="10"
+    >
       <Flex w="90%" m="auto" align="center" p="10px 0px">
         <Flex width="500px" align="center" justifyContent="space-between">
           <Show below="md">
@@ -158,6 +183,9 @@ const Navbar = () => {
               border="none"
               variant="ghost"
               bgColor="inherit"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyUp={(e)=>onPressEnter(e)}
             />
           </Flex>
         </Show>
