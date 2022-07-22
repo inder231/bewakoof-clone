@@ -61,10 +61,11 @@ const MensPage = () => {
       .catch((err) => console.log(err));
     dispatch(setProducts(mensProducts.data));
   };
+  const productsList = useSelector((state) => state.allProducts.products);
   useEffect(() => {
+    if(productsList.length!==0) return;
     getMensProducts();
   }, [sortOrder]);
-  const productsList = useSelector((state) => state.allProducts.products);
   return (
     <Box bg="white" h="100%" color="black" position="relative">
       <Header />
@@ -141,9 +142,9 @@ const MensPage = () => {
         </Show>
         <GridItem bg="white" colSpan={{ sm: 6, md: 5, lg: 5 }} >
           <SimpleGrid columns={[2, 2, 3, 4]} p="1rem" spacing="1rem">
-            {productsList?.map((data, i) => (
-              <Box key={i}>
-                <Link to="/">
+            {productsList?.map((data) => (
+              <Box key={data.id}>
+                <Link to={`/mens/${data.id}`}>
                   <ProductCard data={data} />
                 </Link>
               </Box>

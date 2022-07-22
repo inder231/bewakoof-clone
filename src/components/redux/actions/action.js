@@ -1,6 +1,5 @@
 import { ActionTypes } from "../contents/actionTypes"
 
-console.log(ActionTypes.SET_PRODUCTS);
 export const setProducts = (products)=>{
     return {
         type:ActionTypes.SET_PRODUCTS,

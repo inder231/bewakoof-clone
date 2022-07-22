@@ -4,7 +4,13 @@ const ProductCard = ({ data }) => {
   const { image, name, company, priceNew, pricePrev, tribePrice, liked, fit } =
     data;
   return (
-    <Box maxW="250px" borderRadius="sm" bg="gray.100" position="relative">
+    <Box
+      maxW="250px"
+      borderRadius="sm"
+      bg="gray.100"
+      position="relative"
+      _hover={{ width: "100.5%" }}
+    >
       <Box
         fontSize="10px"
         fontWeight="bold"
