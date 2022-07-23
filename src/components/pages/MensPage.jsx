@@ -22,7 +22,10 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 import axios from "axios";
 import Header from "../component/Header";
 import Navbar from "../component/Navbar";
-import { setProducts } from "../redux/actions/action";
+import {
+  removeSearchedProduct,
+  setProducts,
+} from "../redux/actions/action";
 import ProductCard from "../component/ProductCard";
 import Footer from "../component/Footer";
 const category = [
@@ -39,25 +42,24 @@ const category = [
   "Jeans",
   "Hoodeis",
 ];
-// const filters = [
-//   "Category",
-//   "Sizes",
-//   "Brand",
-//   "Color",
-//   "Design",
-//   "Fit",
-//   "Sleeve",
-//   "Neck",
-//   "Type",
-//   "Rating",
-//   "Discount",
-//   "SortBY",
-// ];
+
 const MensPage = () => {
   const [sortOrder, setSortOrder] = useState("ASC");
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const productsList = useSelector((state) => state.allProducts.products);
+  let searchedResults = useSelector(
+    (state) => state.searchedProducts.searchedProducts
+  );
+  const state = useSelector((state) => state);
+  console.log(state);
+
+  // to display data according to search or by default got from useeffect default behavior to set up accordingly
+  // the list to display the data.
+  const list = searchedResults.length !== 0 ? searchedResults : productsList;
+
+  //  fetching product using async axios ===============//        ===============//
   const getMensProducts = async () => {
     setLoading(true);
     let mensProducts = await axios
@@ -66,11 +68,16 @@ const MensPage = () => {
     dispatch(setProducts(mensProducts.data));
     setLoading(false);
   };
-  const productsList = useSelector((state) => state.allProducts.products);
-  useEffect(() => {
-    if (productsList.length !== 0) return;
+
+  // useEffct with clean up to remove the product from searched list
+
+  useEffect(() => { 
     getMensProducts();
+    return () => {
+      dispatch(removeSearchedProduct());
+    };
   }, [sortOrder]);
+//====================//
   return (
     <Box bg="white" h="100%" color="black" position="relative">
       <Header />
@@ -102,14 +109,20 @@ const MensPage = () => {
                       <Button
                         color="black"
                         variant="ghost"
-                        onClick={() => setSortOrder("ASC")}
+                        onClick={() => {
+                          setSortOrder("ASC");
+                          console.log("clicked");
+                        }}
                       >
                         Price: Low to High
                       </Button>
                       <Button
                         color="black"
                         variant="ghost"
-                        onClick={() => setSortOrder("DESC")}
+                        onClick={() => {
+                          setSortOrder("DESC");
+                          console.log("clicked desc");
+                        }}
                       >
                         Price: High to Low
                       </Button>
@@ -158,7 +171,7 @@ const MensPage = () => {
         <GridItem bg="white" colSpan={{ sm: 6, md: 5, lg: 5 }}>
           <SimpleGrid columns={[2, 2, 3, 4]} p="1rem" spacing="1rem">
             {loading ? (
-              <Flex justify="center"  >
+              <Flex justify="center">
                 <Spinner
                   thickness="4px"
                   speed="0.65s"
@@ -168,7 +181,7 @@ const MensPage = () => {
                 />
               </Flex>
             ) : (
-              productsList?.map((data) => (
+              list?.map((data) => (
                 <Box key={data.id}>
                   <Link to={`/mens/${data.id}`}>
                     <ProductCard data={data} />
