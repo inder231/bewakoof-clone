@@ -15,6 +15,7 @@ import {
   BreadcrumbLink,
   VStack,
   Heading,
+  Divider,
 } from "@chakra-ui/react";
 import { Show } from "@chakra-ui/react";
 import { AiOutlineUser } from "react-icons/ai";
@@ -24,7 +25,7 @@ import { GoThreeBars } from "react-icons/go";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { setProducts } from "../redux/actions/action";
+import { setSearchedProduct } from "../redux/actions/action";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,13 +36,14 @@ const Navbar = () => {
   const getSearchedData = async () => {
     await axios
       .get(`${process.env.REACT_APP_BASE_URL}/?q=${search}`)
-      .then((res) => dispatch(setProducts(res.data)))
+      .then((res) => dispatch(setSearchedProduct(res.data)))
       .catch((err) => console.log(err));
   };
   const onPressEnter = (e) => {
     if (e.key !== "Enter") return;
     getSearchedData();
     navigate("/mens");
+    setSearch("")
   };
   return (
     <Box
@@ -203,6 +205,7 @@ const Navbar = () => {
           <IconButton variant="ghost" colorScheme="black" icon={<BsBag />} />
         </Flex>
       </Flex>
+      <Divider h="2px" bg="gray.200" />
     </Box>
   );
 };
