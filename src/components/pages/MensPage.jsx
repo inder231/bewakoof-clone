@@ -52,8 +52,7 @@ const MensPage = () => {
   let searchedResults = useSelector(
     (state) => state.searchedProducts.searchedProducts
   );
-  const state = useSelector((state) => state);
-  console.log(state);
+
 
   // to display data according to search or by default got from useeffect default behavior to set up accordingly
   // the list to display the data.
@@ -72,6 +71,7 @@ const MensPage = () => {
   // useEffct with clean up to remove the product from searched list
 
   useEffect(() => { 
+    if(productsList.length!==0) return;
     getMensProducts();
     return () => {
       dispatch(removeSearchedProduct());
