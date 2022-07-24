@@ -17,11 +17,12 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
+  addtocart,
   removeSelectedProduct,
   selectedProduct,
 } from "../redux/actions/action";
@@ -31,10 +32,9 @@ const Product = () => {
   const baseUrl = process.env.REACT_APP_BASE_URL;
   const { productId } = useParams();
   const product = useSelector((state) => state.product);
-  console.log(product);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  //   console.log(product);
+
   const getProduct = async () => {
     setLoading(true);
     let res = await axios
@@ -50,6 +50,7 @@ const Product = () => {
     };
   }, [productId]);
   const {
+    id,
     name,
     company,
     image,
@@ -59,6 +60,8 @@ const Product = () => {
     tribePrice,
     fit,
   } = product;
+  const state = useSelector((state) => state);
+  console.log(state);
   return (
     <Box bg="white" color="black" h="100%">
       <Header />
@@ -84,7 +87,13 @@ const Product = () => {
           </Box>
         </Flex>
       ) : (
-        <SimpleGrid columns={[1, 1, 2, 2]} p="2rem" boxSizing="border-box" m='auto' w="80%" >
+        <SimpleGrid
+          columns={[1, 1, 2, 2]}
+          p="2rem"
+          boxSizing="border-box"
+          m="auto"
+          w="80%"
+        >
           <Box>
             <AspectRatio maxW="400px" ratio={2 / 3}>
               <Image
@@ -96,21 +105,25 @@ const Product = () => {
               />
             </AspectRatio>
           </Box>
-          <Flex width="100%" direction="column"  >
-            <Box fontWeight="bold" fontSize="2xl" >{company}</Box>
+          <Flex width="100%" direction="column">
+            <Box fontWeight="bold" fontSize="2xl">
+              {company}
+            </Box>
             <Box>{name}</Box>
             <Flex align="baseline">
-            <Text m="1" fontSize="24px" fontWeight="bold">{priceNew}</Text>
-            <Text
-              m="1"
-              fontSize="12px"
-              color="gray.500"
-              textDecoration="line-through"
-            >
-              {pricePrev}
-            </Text>
-            <Text>{}</Text>
-          </Flex>
+              <Text m="1" fontSize="24px" fontWeight="bold">
+                {priceNew}
+              </Text>
+              <Text
+                m="1"
+                fontSize="12px"
+                color="gray.500"
+                textDecoration="line-through"
+              >
+                {pricePrev}
+              </Text>
+              <Text>{}</Text>
+            </Flex>
             <Box>
               <Flex justify="space-between">
                 <Text>SELECT SIZE</Text>
@@ -175,6 +188,9 @@ const Product = () => {
                 m="2"
                 variant="solid"
                 colorScheme="yellow"
+                onClick={() => {
+                  dispatch(addtocart([product]));
+                }}
               >
                 Add to Cart
               </Button>

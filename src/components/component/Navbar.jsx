@@ -23,7 +23,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BsBag, BsSearch } from "react-icons/bs";
 import { GoThreeBars } from "react-icons/go";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setSearchedProduct } from "../redux/actions/action";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +33,8 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItemCount = useSelector((state) => state.cartList.products.length);
+  console.log(cartItemCount);
   const getSearchedData = async () => {
     await axios
       .get(`${process.env.REACT_APP_BASE_URL}/?q=${search}`)
@@ -43,7 +45,7 @@ const Navbar = () => {
     if (e.key !== "Enter") return;
     getSearchedData();
     navigate("/mens");
-    setSearch("")
+    setSearch("");
   };
   return (
     <Box
@@ -187,7 +189,7 @@ const Navbar = () => {
               bgColor="inherit"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              onKeyUp={(e)=>onPressEnter(e)}
+              onKeyUp={(e) => onPressEnter(e)}
             />
           </Flex>
         </Show>
@@ -202,10 +204,31 @@ const Navbar = () => {
             colorScheme="black"
             icon={<AiOutlineHeart />}
           />
-          <IconButton variant="ghost" colorScheme="black" icon={<BsBag />} />
+          <Box position="relative">
+            <IconButton
+              onClick={() => navigate("/cart")}
+              variant="ghost"
+              colorScheme="black"
+              icon={<BsBag />}
+            />
+            <Text
+              w="25px"
+              h="25px"
+              bg="lightgray"
+              textAlign="center"
+              borderRadius="50%"
+              color="orange"
+              position="absolute"
+              top="-10px"
+              right="-5px"
+              fontWeight="bold"
+            >
+              {cartItemCount}
+            </Text>
+          </Box>
         </Flex>
       </Flex>
-      <Divider h="2px" bg="gray.200" />
+      <Divider h="2px" bg="gray.100" />
     </Box>
   );
 };

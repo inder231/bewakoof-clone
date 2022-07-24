@@ -42,12 +42,15 @@ export const selectedProductReducer = (state = [], { type, payload }) => {
       return state;
   }
 };
-export const cartReducer = (state = [], { type, payload }) => {
+const initCart = {
+  products: [],
+};
+export const cartReducer = (state = initCart, { type, payload }) => {
   switch (type) {
     case ActionTypes.ADD_TO_CART:
       return {
         ...state,
-        cartProducts: payload,
+        products:payload
       };
     default:
       return state;
