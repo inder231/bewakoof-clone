@@ -22,10 +22,7 @@ import { useDispatch, useSelector } from "react-redux/es/exports";
 import axios from "axios";
 import Header from "../component/Header";
 import Navbar from "../component/Navbar";
-import {
-  removeSearchedProduct,
-  setProducts,
-} from "../redux/actions/action";
+import { removeSearchedProduct, setProducts } from "../redux/actions/action";
 import ProductCard from "../component/ProductCard";
 import Footer from "../component/Footer";
 const category = [
@@ -53,7 +50,6 @@ const MensPage = () => {
     (state) => state.searchedProducts.searchedProducts
   );
 
-
   // to display data according to search or by default got from useeffect default behavior to set up accordingly
   // the list to display the data.
   const list = searchedResults.length !== 0 ? searchedResults : productsList;
@@ -64,20 +60,21 @@ const MensPage = () => {
     let mensProducts = await axios
       .get(`${baseUrl}/?_sort=priceNew&_order=${sortOrder}`)
       .catch((err) => console.log(err));
+    console.log(mensProducts);
     dispatch(setProducts(mensProducts.data));
     setLoading(false);
   };
 
   // useEffct with clean up to remove the product from searched list
 
-  useEffect(() => { 
-    if(productsList.length!==0) return;
+  useEffect(() => {
+   
     getMensProducts();
     return () => {
       dispatch(removeSearchedProduct());
     };
   }, [sortOrder]);
-//====================//
+  //====================//
   return (
     <Box bg="white" h="100%" color="black" position="relative">
       <Header />
@@ -109,20 +106,14 @@ const MensPage = () => {
                       <Button
                         color="black"
                         variant="ghost"
-                        onClick={() => {
-                          setSortOrder("ASC");
-                          console.log("clicked");
-                        }}
+                        onClick={() => setSortOrder("ASC")}
                       >
                         Price: Low to High
                       </Button>
                       <Button
                         color="black"
                         variant="ghost"
-                        onClick={() => {
-                          setSortOrder("DESC");
-                          console.log("clicked desc");
-                        }}
+                        onClick={() => setSortOrder("DESC")}
                       >
                         Price: High to Low
                       </Button>
