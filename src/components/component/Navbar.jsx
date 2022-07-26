@@ -34,7 +34,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItemCount = useSelector((state) => state.cartList.products.length);
-  console.log(cartItemCount);
+  const state = useSelector((state)=>state);
+  console.log(state);
   const getSearchedData = async () => {
     await axios
       .get(`${process.env.REACT_APP_BASE_URL}/?q=${search}`)

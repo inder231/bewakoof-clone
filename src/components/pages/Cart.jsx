@@ -17,7 +17,9 @@ import React from "react";
 import { BiDownArrow } from "react-icons/bi";
 import { FaTruck } from "react-icons/fa";
 import { GrFormNext } from "react-icons/gr";
+import {useNavigate} from 'react-router-dom'
 const Cart = () => {
+  const navigate = useNavigate();
   return (
     <Box bg="white" color="black">
       <Show above="md">
@@ -215,7 +217,7 @@ const Cart = () => {
           <Flex border='1px solid lightgray' p='2' justify='space-between' >
             <Box fontSize='16px' >Total<br/> <b>&#8377; 549</b></Box>
             <Box>
-              <Button bg='teal' color='white' _hover={{bg:'lightblue'}} >ADD ADDRESS</Button>
+              <Button bg='teal' color='white' _hover={{bg:'lightblue'}} onClick={()=>navigate('/login-signup')} >ADD ADDRESS</Button>
             </Box>
           </Flex>
         </Box>

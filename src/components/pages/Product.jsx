@@ -60,8 +60,7 @@ const Product = () => {
     tribePrice,
     fit,
   } = product;
-  const state = useSelector((state) => state);
-  console.log(state);
+  const state = useSelector((state) => state); 
   return (
     <Box bg="white" color="black" h="100%">
       <Header />

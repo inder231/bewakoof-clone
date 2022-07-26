@@ -7,6 +7,7 @@ import { theme } from "./components/themes/theme";
 import { Provider } from "react-redux";
 import store from "./components/redux/store"
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <BrowserRouter>
     <ChakraProvider theme={theme}>

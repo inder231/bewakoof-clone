@@ -1,4 +1,3 @@
-import { Action } from "history";
 import { ActionTypes } from "../contents/actionTypes";
 
 const initState = {
@@ -42,26 +41,24 @@ export const selectedProductReducer = (state = [], { type, payload }) => {
       return state;
   }
 };
-const initCart = {
-  products: [],
-};
-export const cartReducer = (state = initCart, { type, payload }) => {
+
+export const cartReducer = (state = initState, { type, payload }) => {
   switch (type) {
     case ActionTypes.ADD_TO_CART:
       return {
         ...state,
-        products:payload
+        products:[...state.products,payload]
       };
     default:
       return state;
   }
 };
-export const wishlistReducer = (state = [], { type, payload }) => {
+export const wishlistReducer = (state = initState, { type, payload }) => {
   switch (type) {
     case ActionTypes.ADD_TO_WISHLIST:
       return {
         ...state,
-        wishlistProducts: payload,
+        products: [...state.products,payload],
       };
     default:
       return state;
