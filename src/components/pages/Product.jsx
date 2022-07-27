@@ -188,7 +188,7 @@ const Product = () => {
                 variant="solid"
                 colorScheme="yellow"
                 onClick={() => {
-                  dispatch(addtocart([product]));
+                  dispatch(addtocart(product));
                 }}
               >
                 Add to Cart

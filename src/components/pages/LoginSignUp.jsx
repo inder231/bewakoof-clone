@@ -12,16 +12,14 @@ import {
   InputGroup,
   InputLeftElement,
   InputLeftAddon,
-  FormHelperText,
-  FormErrorMessage,
   PinInput,
   PinInputField,
-  Alert,
-  AlertIcon,
   HStack,
   Checkbox,
 } from "@chakra-ui/react";
+
 import flag from "../flag/flag.png";
+import { useNavigate } from "react-router-dom";
 const LoginSignUp = () => {
   const [input, setInput] = useState("");
   const [verify, setVerify] = useState(false);
@@ -29,6 +27,8 @@ const LoginSignUp = () => {
   const [show, setShow] = useState(false);
   const ref = useRef();
   const otpRef = useRef();
+  const navigate = useNavigate();
+
   const handleOtp = (e) => {
     e.preventDefault();
     if (input.length == 0 || input.length != 10) {
@@ -47,6 +47,7 @@ const LoginSignUp = () => {
     if (otp == ref.current) {
       alert("Verified successfully.");
       setOtp("");
+      navigate("/cart");
     } else if (otp.length === 4) {
       alert("Wrong OTP");
       setOtp("");
@@ -54,6 +55,7 @@ const LoginSignUp = () => {
   }, [otp]);
   return (
     <Box h="100vh">
+      {/* <div className="recaptcha-container" /> */}
       <SimpleGrid columns={2}>
         <Flex
           h="100vh"
@@ -143,9 +145,11 @@ const LoginSignUp = () => {
                   onChange={(e) => setShow(e.target.checked)}
                 />
                 <b>Show</b>
-                <Button colorScheme="blue" variant="outline" 
-                m="1"
-                onClick={handleOtp}
+                <Button
+                  colorScheme="blue"
+                  variant="outline"
+                  m="1"
+                  onClick={handleOtp}
                 >
                   Resend OTP
                 </Button>
