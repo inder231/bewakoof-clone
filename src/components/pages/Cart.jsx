@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const navigate = useNavigate();
   const cartProducts = useSelector((state) => state.cartList.products);
-  console.log(cartProducts);
+  // console.log(cartProducts);
   return (
     <Box bg="white" color="black">
       <Show above="md">

@@ -16,8 +16,10 @@ import {
   PinInputField,
   HStack,
   Checkbox,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
-
+import { saveAuth, loadAuth } from "../../utils/localStorage";
 import flag from "../flag/flag.png";
 import { useNavigate } from "react-router-dom";
 const LoginSignUp = () => {
@@ -28,6 +30,7 @@ const LoginSignUp = () => {
   const ref = useRef();
   const otpRef = useRef();
   const navigate = useNavigate();
+  const auth = loadAuth("bewakoofAuth");
 
   const handleOtp = (e) => {
     e.preventDefault();
@@ -47,6 +50,7 @@ const LoginSignUp = () => {
     if (otp == ref.current) {
       alert("Verified successfully.");
       setOtp("");
+      saveAuth("bewakoofAuth", { isAuth: true, token: Math.random() });
       navigate("/cart");
     } else if (otp.length === 4) {
       alert("Wrong OTP");
@@ -55,7 +59,12 @@ const LoginSignUp = () => {
   }, [otp]);
   return (
     <Box h="100vh">
-      {/* <div className="recaptcha-container" /> */}
+      {
+        auth.isAuth&&(<Alert status='success'>
+        <AlertIcon />
+        Already Loggen In.
+      </Alert>)
+      }
       <SimpleGrid columns={2}>
         <Flex
           h="100vh"

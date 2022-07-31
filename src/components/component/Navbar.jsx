@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setSearchedProduct } from "../redux/actions/action";
 import { useNavigate } from "react-router-dom";
+import { loadAuth } from "../../utils/localStorage";
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -35,7 +36,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const cartItemCount = useSelector((state) => state.cartList.products.length);
   const state = useSelector((state)=>state);
-  console.log(state);
+  const auth = loadAuth("bewakoofAuth");
+  console.log(auth);
   const getSearchedData = async () => {
     await axios
       .get(`${process.env.REACT_APP_BASE_URL}/?q=${search}`)

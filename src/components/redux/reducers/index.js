@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import {
+  authReducer,
   cartReducer,
   productReducer,
   searchedProductReducer,
@@ -13,4 +14,5 @@ export const reducers = combineReducers({
   searchedProducts: searchedProductReducer,
   cartList: cartReducer,
   wishList: wishlistReducer,
+  auth:authReducer,
 });

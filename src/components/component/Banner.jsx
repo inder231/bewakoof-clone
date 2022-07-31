@@ -15,7 +15,7 @@ const Banner = () => {
       </Box>
       <Flex>
         <Link to="/mens">
-          <Box _hover={{ width: "100%" }} width="99%">
+          <Box _hover={{ width: "100%" }} width="99.5%" m="auto">
             <Image
               src="https://images.bewakoof.com/web/Gender-Picker-Banner-desktop-mendesktopNEW-1651231162.jpg"
               alt="shopMen"
@@ -23,7 +23,7 @@ const Banner = () => {
           </Box>
         </Link>
         <Link to="/womens">
-          <Box _hover={{ width: "100%" }} width="99%">
+          <Box _hover={{ width: "100%" }} width="99.5%" m="auto">
             <Image
               src="https://images.bewakoof.com/web/Gender-Picker-Banner-desktop-Womendesktop-1651231163NEW.jpg"
               alt="shopWomen"

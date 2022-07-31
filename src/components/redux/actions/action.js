@@ -28,16 +28,32 @@ export const removeSearchedProduct = () => {
     type: ActionTypes.REMOVE_SEARCHED_PRODUCTS,
   };
 };
-export const addtocart = (product)=>{
-    return {
-        type:ActionTypes.ADD_TO_CART,
-        payload:product
-    }
-}
+export const addtocart = (product) => {
+  return {
+    type: ActionTypes.ADD_TO_CART,
+    payload: product,
+  };
+};
 
-export const addtowishlist = (product)=>{
-    return {
-        type:ActionTypes.ADD_TO_WISHLIST,
-        payload:product
-    }
-}
+export const addtowishlist = (product) => {
+  return {
+    type: ActionTypes.ADD_TO_WISHLIST,
+    payload: product,
+  };
+};
+export const loginRequest = () => {
+  return {
+    type: ActionTypes.LOGIN_REQUEST,
+  };
+};
+export const loginSuccess = (payload) => {
+  return {
+    type: ActionTypes.LOGIN_SUCCESS,
+    payload: payload,
+  };
+};
+export const loginFailure = () => {
+  return {
+    type: ActionTypes.LOGIN_FAILURE,
+  };
+};
