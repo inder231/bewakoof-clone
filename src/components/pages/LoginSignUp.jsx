@@ -60,7 +60,7 @@ const LoginSignUp = () => {
   return (
     <Box h="100vh">
       {
-        auth.isAuth&&(<Alert status='success'>
+        auth&&(<Alert status='success'>
         <AlertIcon />
         Already Loggen In.
       </Alert>)
